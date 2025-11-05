@@ -1,0 +1,12 @@
+{
+  "camera": {
+    "bev_camera": "CAM_DOWN",
+    "drone_cam_front_tilted": "CAM_FRONT",
+    "drone_cam_right_tilted": "CAM_RIGHT",
+    "drone_cam_left_tilted": "CAM_LEFT",
+    "drone_cam_back_tilted": "CAM_BACK"
+  },
+  "lidar": {
+    "lidar": "LIDAR_TOP"
+  }
+}

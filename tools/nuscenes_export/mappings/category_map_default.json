@@ -1,0 +1,26 @@
+{
+  "vehicle": {
+    "default": "vehicle.car",
+    "car": "vehicle.car",
+    "truck": "vehicle.truck",
+    "bus": "vehicle.bus",
+    "motorcycle": "vehicle.motorcycle",
+    "bicycle": "vehicle.bicycle"
+  },
+  "pedestrian": {
+    "default": "human.pedestrian",
+    "pedestrian": "human.pedestrian",
+    "person": "human.pedestrian"
+  },
+  "traffic_cone": {
+    "default": "movable_object.trafficcone",
+    "cone": "movable_object.trafficcone"
+  },
+  "barrier": {
+    "default": "static_object.barrier",
+    "barrier": "static_object.barrier"
+  },
+  "other": {
+    "default": "object.unknown"
+  }
+}
