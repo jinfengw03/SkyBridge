@@ -11,7 +11,7 @@ from mmdet.models import DETECTORS
 from mmdet3d.core import bbox3d2result
 from mmdet3d.models.detectors.mvx_two_stage import MVXTwoStageDetector
 from projects.mmdet3d_plugin.models.utils.grid_mask import GridMask
-from projects.mmdet3d_plugin.bevformer.detectors.bevformer import BEVFormer
+from projects.mmdet3d_plugin.skybridge.detectors.bevformer import BEVFormer
 import time
 import copy
 import numpy as np

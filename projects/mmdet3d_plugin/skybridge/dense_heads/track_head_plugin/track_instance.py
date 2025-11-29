@@ -1,12 +1,6 @@
-# ------------------------------------------------------------------------
-# Modified from Detectron2 (https://github.com/facebookresearch/detectron2)
-# Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
-# ------------------------------------------------------------------------
-
 import itertools
 from typing import Any, Dict, List, Tuple, Union
 import torch
-import numpy as np
 
 
 class Instances:
@@ -14,28 +8,20 @@ class Instances:
     This class represents a list of instances in an image.
     It stores the attributes of instances (e.g., boxes, masks, labels, scores) as "fields".
     All fields must have the same ``__len__`` which is the number of instances.
-
     All other (non-field) attributes of this class are considered private:
     they must start with '_' and are not modifiable by a user.
-
     Some basic usage:
-
     1. Set/get/check a field:
-
        .. code-block:: python
-
           instances.gt_boxes = Boxes(...)
           print(instances.pred_masks)  # a tensor of shape (N, H, W)
           print('gt_masks' in instances)
-
     2. ``len(instances)`` returns the number of instances
     3. Indexing: ``instances[indices]`` will apply the indexing on all the fields
        and returns a new :class:`Instances`.
        Typically, ``indices`` is a integer vector of indices,
        or a binary mask of length ``num_instances``
-
        .. code-block:: python
-
           category_3_detections = instances[instances.pred_classes == 3]
           confident_detections = instances[instances.scores > 0.9]
     """
@@ -106,7 +92,6 @@ class Instances:
         """
         Returns:
             dict: a dict which maps names (str) to data of the fields
-
         Modifying the returned dict will modify this instance.
         """
         return self._fields
@@ -136,7 +121,6 @@ class Instances:
         """
         Args:
             item: an index-like object and will be used to index all the fields.
-
         Returns:
             If `item` is a string, return the data in the corresponding field.
             Otherwise, returns an `Instances` where all fields are indexed by `item`.
@@ -149,7 +133,18 @@ class Instances:
 
         ret = Instances(self._image_size)
         for k, v in self._fields.items():
-            ret.set(k, v[item])
+            # print(k, type(item), 'getitem', item.type(), item.dtype)
+            # if index by torch.BoolTensor
+            if k == 'kalman_models' and isinstance(item, torch.Tensor):
+                # print(item.shape, 'in get item')
+                ret_list = []
+                for i, if_true in enumerate(item):
+                    if if_true:
+                        ret_list.append(self.kalman_models[i])
+                ret.set(k, ret_list)
+
+            else:
+                ret.set(k, v[item])
         return ret
 
     def __len__(self) -> int:
@@ -166,7 +161,6 @@ class Instances:
         """
         Args:
             instance_lists (list[Instances])
-
         Returns:
             Instances
         """
